@@ -52,7 +52,7 @@ jobs:
           molecule --version &&
           ansible --version &&
           mkdir -vp collections/ansible_collections/bcrisp4 &&
-          ln -fsv . collections/ansible_collections/bcrisp4/postfix
+          ln -fsv . collections/ansible_collections/bcrisp4/postfix &&
           MOLECULE_DISTRO=${{ matrix.molecule_distro.name }}
           MOLECULE_DISTRO_VERSION=${{ matrix.molecule_distro.version }}
           molecule test -s ${{ matrix.role_name }}
