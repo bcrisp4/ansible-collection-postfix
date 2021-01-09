@@ -1,20 +1,16 @@
 name: "bcrisp4.postfix.install"
-env:
-  collection_path: ansible_collections/bcrisp4/postfix
-  requirements_file: ${{ env.collection_path }}/requirements.txt
-  role_name: install
 on:
   workflow_dispatch: {}
   push:
     paths:
       - 'roles/install/**'
       - 'molecule/install/**'
-      - '.github/workflows/test_install.yml'
+      - '.github/workflows/install_role.yml'
   pull_request:
     paths:
       - 'roles/install/**'
       - 'molecule/install/**'
-      - '.github/workflows/test_install.yml'
+      - '.github/workflows/install_role.yml'
 jobs:
   molecule:
     runs-on: ubuntu-latest
@@ -24,14 +20,15 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
+        role_name: 
+          - install
         molecule_distro:
           - name: debian
             version: 10
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-        with:
-          path: 
+
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -41,10 +38,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ env.pythonLocation }}
-          key: ${{ env.pythonLocation }}-${{ hashFiles(env.requirements_file) }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}
 
       - name: Install dependencies
-        working-directory: ${{ env.collection_path }}
         run: |
           sudo apt install apt-transport-https ca-certificates curl software-properties-common
           curl -fsSL https://get.docker.com | sudo sh -
@@ -52,10 +48,11 @@ jobs:
           python3 -m pip install -r requirements.txt
 
       - name: Test install role
-        working-directory: ${{ env.collection_path }}
         run: >-
           molecule --version &&
           ansible --version &&
+          mkdir -vp collections/ansible_collections/bcrisp4 &&
+          ln -fsv . collections/ansible_collections/bcrisp4/postfix
           MOLECULE_DISTRO=${{ matrix.molecule_distro.name }}
           MOLECULE_DISTRO_VERSION=${{ matrix.molecule_distro.version }}
-          molecule test -s ${{ env.role_name }}
+          molecule test -s ${{ matrix.role_name }}
