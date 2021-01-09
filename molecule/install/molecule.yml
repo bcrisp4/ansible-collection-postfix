@@ -2,10 +2,20 @@
 dependency:
   name: galaxy
 driver:
-  name: delegated
+  name: docker
 platforms:
-  - name: instance
+  - name: molecule_${MOLECULE_SCENARIO_NAME}_${MOLECULE_DISTRO:-debian}_${MOLECULE_DISTRO_VERSION}
+    image: ${MOLECULE_DISTRO:-debian}:${MOLECULE_DISTRO_VERSION:-stable}
 provisioner:
   name: ansible
+  playbooks:
+    prepare: prepare.yml
+    converge: ${MOLECULE_PLAYBOOK:-converge.yml}
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
+  flake8 .
 verifier:
-  name: ansible
+  name: testinfra
+  lint: flake8
