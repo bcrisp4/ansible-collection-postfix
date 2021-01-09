@@ -1,10 +1,11 @@
 ---
-- include_vars: "{{ item }}"
+- name: include vars
+  include_vars: "{{ item }}"
   with_first_found: ["{{ ansible_os_family|lower }}.yml", "default.yml"]
-    
+
 - name: ensure that the postfix package is installed
   ansible.builtin.package:
     name: >-
       {{ postfix_package_name }}{{ '=={}'.format(postfix_package_version)
-      if postfix_package_version != "" }}
+      if postfix_package_version | length > 0 }}
     state: present
