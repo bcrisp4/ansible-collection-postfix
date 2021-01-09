@@ -1,0 +1,17 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+platforms:
+  - name: instance
+provisioner:
+  name: ansible
+verifier:
+  name: testinfra
+  lint: flake8
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
+  flake8 .

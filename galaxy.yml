@@ -1,0 +1,20 @@
+namespace: bcrisp4
+name: postfix
+version: 0.0.1
+readme: README.md
+authors:
+- Ben Crisp <ben@thecrisp.io>
+description: Install and configure Postfix
+license:
+- MIT
+license_file: LICENSE.txt
+tags:
+  - postfix
+  - email
+  - smtp
+dependencies: {}
+repository: https://github.com/bcrisp4/ansible-role-postfix
+documentation: https://github.com/bcrisp4/ansible-role-postfix
+homepage: https://github.com/bcrisp4/ansible-role-postfix
+issues: https://github.com/bcrisp4/ansible-role-postfix/issues
+build_ignore: []

@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include bcrisp4.postfix.install"
+      include_role:
+        name: "bcrisp4.postfix.install"
