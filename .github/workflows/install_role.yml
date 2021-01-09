@@ -1,0 +1,61 @@
+name: "bcrisp4.postfix.install"
+env:
+  collection_path: ansible_collections/bcrisp4/postfix
+  requirements_file: ${{ env.collection_path }}/requirements.txt
+  role_name: install
+on:
+  workflow_dispatch: {}
+  push:
+    paths:
+      - 'roles/${{ env.role_name }}/**'
+      - 'molecule/${{ env.role_name }}/**'
+      - '.github/workflows/test_${{ env.role_name }}.yml'
+  pull_request:
+    paths:
+      - 'roles/${{ env.role_name }}/**'
+      - 'molecule/${{ env.role_name }}/**'
+      - '.github/workflows/test_${{ env.role_name }}.yml'
+jobs:
+  molecule:
+    runs-on: ubuntu-latest
+    env:
+      PY_COLORS: 1
+      ANSIBLE_FORCE_COLOR: 1
+    strategy:
+      fail-fast: true
+      matrix:
+        molecule_distro:
+          - name: debian
+            version: 10
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          path: 
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Cache Python environment
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles(env.requirements_file) }}
+
+      - name: Install dependencies
+        working-directory: ${{ env.collection_path }}
+        run: |
+          sudo apt install apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://get.docker.com | sudo sh -
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
+
+      - name: Test install role
+        working-directory: ${{ env.collection_path }}
+        run: >-
+          molecule --version &&
+          ansible --version &&
+          MOLECULE_DISTRO=${{ matrix.molecule_distro.name }}
+          MOLECULE_DISTRO_VERSION=${{ matrix.molecule_distro.version }}
+          molecule test -s ${{ env.role_name }}
