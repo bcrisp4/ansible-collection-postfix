@@ -7,14 +7,14 @@ on:
   workflow_dispatch: {}
   push:
     paths:
-      - 'roles/${{ env.role_name }}/**'
-      - 'molecule/${{ env.role_name }}/**'
-      - '.github/workflows/test_${{ env.role_name }}.yml'
+      - 'roles/install/**'
+      - 'molecule/install/**'
+      - '.github/workflows/test_install.yml'
   pull_request:
     paths:
-      - 'roles/${{ env.role_name }}/**'
-      - 'molecule/${{ env.role_name }}/**'
-      - '.github/workflows/test_${{ env.role_name }}.yml'
+      - 'roles/install/**'
+      - 'molecule/install/**'
+      - '.github/workflows/test_install.yml'
 jobs:
   molecule:
     runs-on: ubuntu-latest
