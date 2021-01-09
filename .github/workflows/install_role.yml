@@ -45,8 +45,6 @@ jobs:
       - name: Install dependencies
         working-directory: ansible_collections/bcrisp4/postfix
         run: |
-          sudo apt install apt-transport-https ca-certificates curl software-properties-common
-          curl -fsSL https://get.docker.com | sudo sh -
           python3 -m pip install --upgrade pip
           python3 -m pip install -r requirements.txt
 
