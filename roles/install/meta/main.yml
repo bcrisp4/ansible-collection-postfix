@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Ben Crisp
+  description: Install Postfix
+  license: MIT
+  min_ansible_version: 2.1
+  platforms:
+    - name: Debian
+      versions:
+       - 1o
+  galaxy_tags:
+    - postfix
+    - smtp
+    - email
+dependencies: []
