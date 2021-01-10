@@ -18,3 +18,7 @@ Installs the Postfix package
 - [ ] role to configure postfix aliases
 - [ ] role to configure postfix generic table
 - [ ] probably more
+
+## License
+
+Released under the [MIT license](https://raw.githubusercontent.com/bcrisp4/ansible-collection-postfix/main/LICENSE.txt)
