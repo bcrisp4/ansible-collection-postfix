@@ -1,0 +1,68 @@
+name: "bcrisp4.postfix.configure"
+on:
+  pull_request:
+    paths:
+      - 'roles/configure/**'
+      - 'molecule/configure/**'
+      - '.github/workflows/bcrisp4.postfix.configure.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/configure/**'
+      - 'molecule/configure/**'
+      - '.github/workflows/bcrisp4.postfix.configure.yml'
+  schedule:
+    - cron: "0 9 * * *"
+jobs:
+  molecule:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        role_name:
+          - configure
+        molecule_distro:
+          - "debian:stretch"
+          - "debian:buster"
+          - "ubuntu:bionic"
+          - "ubuntu:focal"
+          - "centos:7"
+          - "centos:8"
+          - "fedora:31"
+          - "fedora:32"
+    env:
+      PY_COLORS: 1
+      ANSIBLE_FORCE_COLOR: 1
+      MOLECULE_DISTRO: ${{ matrix.molecule_distro }}
+      COLLECTION_PATH: ansible_collections/bcrisp4/postfix
+      REQUIREMENTS_FILE: requirements-dev.txt
+    defaults:
+      run:
+        working-directory: ${{ env.COLLECTION_PATH }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          path: ${{ env.COLLECTION_PATH }}
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Cache Python environment
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles(format('{0}/{1}', env.COLLECTION_PATH, env.REQUIREMENTS_FILE)) }}
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements-dev.txt
+          molecule --version
+          ansible --version
+
+      - name: Test
+        run: molecule test -s ${{ matrix.role_name }}
