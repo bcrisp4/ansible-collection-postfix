@@ -13,14 +13,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Setup Python
-        uses: actions/setup-python@v2.2.1
+        uses: actions/setup-python@v2
         with:
           python-version: 3.9
-
-      - name: Install dependencies
-        run: >-
-          python3 -m pip install --upgrade pip &&
-          python3 -m pip install -r requirements-release.txt
 
       - name: Get the tag version
         id: get_tag_version
@@ -30,11 +25,23 @@ jobs:
         id: get_galaxy_version
         run: echo ::set-output name=GALAXY_VERSION::$(yq -r '.version' galaxy.yml)
 
-      - name: Check version numbers are consistent
+      - name: Check that version numbers are consistent
         id: check_versions
         run: >- 
           [ ${{ steps.get_tag_version.outputs.TAG_VERSION }} =
           ${{ steps.get_galaxy_version.outputs.GALAXY_VERSION }} ]
+
+      - name: Get Changelog Entry
+        id: read_changelog
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          version: ${{ steps.get_tag_version.outputs.TAG_VERSION }}
+          path: ./CHANGELOG.md
+
+      - name: Install dependencies
+        run: >-
+          python3 -m pip install --upgrade pip &&
+          python3 -m pip install -r requirements-release.txt
 
       - name: Build Collection
         run: >-
@@ -43,16 +50,19 @@ jobs:
 
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1.1.4
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release v${{ steps.get_tag_version.outputs.TAG_VERSION }}
+          body: ${{ steps.read_changelog.outputs.changes }}
+          prerelease: ${{ steps.read_changelog.outputs.status == 'prereleased' }}
+          draft: ${{ steps.read_changelog.outputs.status == 'unreleased' }}
 
       - name: Upload Release Asset to GitHub
         id: upload_release_asset
-        uses: actions/upload-release-asset@v1.0.2
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
