@@ -1,4 +1,4 @@
-name: "test bcrisp4.postfix.install"
+name: "bcrisp4.postfix.install"
 on:
   workflow_dispatch: {}
   push:
