@@ -1,0 +1,16 @@
+---
+postfix_service_manage: true
+postfix_service_name: postfix
+postfix_service_state: started
+postfix_service_enabled: true
+postfix_config_dir: /etc/postfix
+postfix_config_dir_owner: root
+postfix_config_dir_group: root
+postfix_config_dir_mode: u=rwx,go=rx
+postfix_config_file_main: main.cf
+postfix_config_file_master: master.cf
+postfix_config_file_owner: root
+postfix_config_file_group: root
+postfix_config_file_mode: ug=r,o=
+postfix_config_main: {}
+postfix_config_master: {}
