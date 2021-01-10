@@ -32,7 +32,7 @@ Configure Postfix
   variables:
     # This Postfix configuration serves only as an example. There is no guarantee
     # that it is valid or secure.
-    postfix_main_config:
+    postfix_config_main:
       smtpd_banner: $myhostname ESMTP $mail_name (Debian/GNU)
       biff: false
       append_dot_mydomain: false
@@ -61,7 +61,7 @@ Configure Postfix
       inet_protocols: all
     # The following is not a complete or valid Postfix master process configuration.
     # It serves only as a demonstration.
-    postfix_master_config:
+    postfix_config_master:
       - service: smtp 
         type: inet
         private: false
