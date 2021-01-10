@@ -1,4 +1,9 @@
 ---
+- name: ensure apt cache is updated on debian hosts
+  ansible.builtin.apt:
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
 - name: ensure that the postfix package is installed
   ansible.builtin.package:
     name: >-
