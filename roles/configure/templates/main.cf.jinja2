@@ -1,0 +1,6 @@
+{%- import 'macros.jinja2' as m with context %}
+# {{ ansible_managed }}
+
+{% for name, value in _config|dictsort() %}
+{{ m.write_parameter(name, value) -}}
+{% endfor %}
