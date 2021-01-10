@@ -10,6 +10,11 @@ Install and configure Postfix
 
 Installs the Postfix package
 
+### [bcrisp4.postfix.configure](https://github.com/bcrisp4/ansible-collection-postfix/tree/main/roles/configure) ![bcrisp4.postfix.configure](https://github.com/bcrisp4/ansible-collection-postfix/workflows/bcrisp4.postfix.configure/badge.svg)
+
+- Manage the Postfix service
+- Main Postfix configuration
+- Postfix master process configuration
 
 ## Todo
 - [ ] role to provide common postfix ansible handlers
