@@ -10,7 +10,8 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 def test_postfix_package_is_installed(host):
-    if host.system_info.distribution in ["debian", "ubuntu"]:
+    if host.system_info.distribution in ["debian", "ubuntu", "centos",
+                                         "fedora"]:
         postfix_package = "postfix"
     pkg = host.package(postfix_package)
     assert pkg.is_installed

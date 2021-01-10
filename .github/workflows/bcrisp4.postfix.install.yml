@@ -25,8 +25,14 @@ jobs:
         role_name:
           - install
         molecule_distro:
+          - "debian:9"
           - "debian:10"
+          - "ubuntu:18.04"
           - "ubuntu:20.04"
+          - "centos:7"
+          - "centos:8"
+          - "fedora:32"
+          - "fedora:33"
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
