@@ -4,8 +4,8 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: molecule_${MOLECULE_SCENARIO_NAME}_${MOLECULE_DISTRO:-debian}_${MOLECULE_DISTRO_VERSION}
-    image: ${MOLECULE_DISTRO:-debian}:${MOLECULE_DISTRO_VERSION:-stable}
+  - name: instance
+    image: ${MOLECULE_DISTRO:-debian:stable}
 provisioner:
   name: ansible
   playbooks:

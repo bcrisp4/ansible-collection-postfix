@@ -1,32 +1,27 @@
 name: "bcrisp4.postfix.install"
 on:
-  workflow_dispatch: {}
-  push:
+  pull_request: &on_paths
     paths:
       - 'roles/install/**'
       - 'molecule/install/**'
-      - '.github/workflows/test_bcrisp4.postfix.install.yml'
-  pull_request:
-    paths:
-      - 'roles/install/**'
-      - 'molecule/install/**'
-      - '.github/workflows/test_bcrisp4.postfix.install.yml'
+      - '.github/workflows/bcrisp4.postfix.install.yml'
+  push: *on_paths
+  schedule:
+    - cron: "0 9 * * *"
 jobs:
   molecule:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
       matrix:
-        role_name: 
+        role_name:
           - install
         molecule_distro:
-          - name: debian
-            version: 10
+          - "debian:10"
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
-      MOLECULE_DISTRO: ${{ matrix.molecule_distro.name }}
-      MOLECULE_DISTRO_VERSION: ${{ matrix.molecule_distro.version }}
+      MOLECULE_DISTRO: ${{ matrix.molecule_distro }}
       COLLECTION_PATH: ansible_collections/bcrisp4/postfix
       REQUIREMENTS_FILE: requirements-dev.txt
     defaults:
