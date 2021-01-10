@@ -17,17 +17,21 @@ jobs:
         with:
           python-version: 3.9
 
+      - name: Install dependencies
+        run: >-
+          python3 -m pip install --upgrade pip &&
+          python3 -m pip install -r requirements-release.txt
+
       - name: Get the tag version
         id: get_tag_version
         run: echo ::set-output name=TAG_VERSION::${GITHUB_REF/refs\/tags\/v/}
-      
       - name: Get the Galaxy metadata version
         id: get_galaxy_version
         run: echo ::set-output name=GALAXY_VERSION::$(yq -r '.version' galaxy.yml)
 
       - name: Check that version numbers are consistent
         id: check_versions
-        run: >- 
+        run: >-
           [ ${{ steps.get_tag_version.outputs.TAG_VERSION }} =
           ${{ steps.get_galaxy_version.outputs.GALAXY_VERSION }} ]
 
@@ -38,10 +42,6 @@ jobs:
           version: ${{ steps.get_tag_version.outputs.TAG_VERSION }}
           path: ./CHANGELOG.md
 
-      - name: Install dependencies
-        run: >-
-          python3 -m pip install --upgrade pip &&
-          python3 -m pip install -r requirements-release.txt
 
       - name: Build Collection
         run: >-
