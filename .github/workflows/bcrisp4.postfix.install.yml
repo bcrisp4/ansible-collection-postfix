@@ -26,6 +26,7 @@ jobs:
           - install
         molecule_distro:
           - "debian:10"
+          - "ubuntu:20.04"
     env:
       PY_COLORS: 1
       ANSIBLE_FORCE_COLOR: 1
