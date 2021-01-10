@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Modify the install role to ensure that the apt cache is updated before installing the Postfix package
+- Fix the path to the CHANGELOG file in the PR workflow
 
 ## [0.1.1] - 2021-01-10
 ### Added
