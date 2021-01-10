@@ -6,7 +6,7 @@ Install and configure Postfix
 
 ## Implemented roles
 
-### bcrisp4.postfix.install
+### bcrisp4.postfix.install ![bcrisp4.postfix.install](https://github.com/bcrisp4/ansible-collection-postfix/workflows/bcrisp4.postfix.install/badge.svg)
 
 Installs the Postfix package
 
