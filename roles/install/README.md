@@ -2,8 +2,6 @@
 
 Install Postfix
 
-Currently only written to work on Debian.
-
 ## Role Variables
 
 | Variable                | Default   | Description                                                                      |
@@ -20,6 +18,20 @@ Currently only written to work on Debian.
         name: bcrisp4.postfix.install
 
 ```
+## Supported Platforms
+
+- Debian
+  - Stretch (9)
+  - Buster (10)
+- Ubuntu
+  - Bionic (18.04)
+  - Focal (20.04)
+- EL (CentOS)
+  - 7
+  - 8
+- Fedora
+  - 31
+  - 32
 
 ## License
 
