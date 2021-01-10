@@ -22,12 +22,24 @@ jobs:
           python3 -m pip install --upgrade pip &&
           python3 -m pip install -r requirements-release.txt
 
+      - name: Get the tag version
+        id: get_tag_version
+        run: echo ::set-output name=TAG_VERSION::${GITHUB_REF/refs\/tags\/v/}
+      
+      - name: Get the Galaxy metadata version
+        id: get_galaxy_version
+        run: echo ::set-output name=GALAXY_VERSION::$(yq -r '.version' galaxy.yml)
+
+      - name: Check version numbers are consistent
+        id: check_versions
+        run: >- 
+          [ ${{ steps.get_tag_version.outputs.TAG_VERSION }} =
+          ${{ steps.get_galaxy_version.outputs.GALAXY_VERSION }} ]
+
       - name: Build Collection
         run: >-
           ansible --version &&
-          ansible-galaxy collection build --force --verbose . &&
-          mv bcrisp4-postfix-$(echo ${{ github.ref }} | cut -d\v -f2).tar.gz
-          bcrisp4-postfix-${{ github.ref }}.tar.gz
+          ansible-galaxy collection build --force --verbose .
 
       - name: Create GitHub Release
         id: create_release
@@ -36,7 +48,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release v${{ steps.get_tag_version.outputs.TAG_VERSION }}
 
       - name: Upload Release Asset to GitHub
         id: upload_release_asset
@@ -45,6 +57,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bcrisp4-postfix-${{ github.ref }}.tar.gz
-          asset_name: bcrisp4-postfix-${{ github.ref }}.tar.gz
+          asset_path: ./bcrisp4-postfix-${{ steps.get_tag_version.outputs.TAG_VERSION }}.tar.gz
+          asset_name: bcrisp4-postfix-${{ steps.get_tag_version.outputs.TAG_VERSION }}.tar.gz
           asset_content_type: application/gzip
