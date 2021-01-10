@@ -14,9 +14,6 @@ on:
 jobs:
   molecule:
     runs-on: ubuntu-latest
-    env:
-      PY_COLORS: 1
-      ANSIBLE_FORCE_COLOR: 1
     strategy:
       fail-fast: true
       matrix:
@@ -25,11 +22,21 @@ jobs:
         molecule_distro:
           - name: debian
             version: 10
+    env:
+      PY_COLORS: 1
+      ANSIBLE_FORCE_COLOR: 1
+      MOLECULE_DISTRO: ${{ matrix.molecule_distro.name }}
+      MOLECULE_DISTRO_VERSION: ${{ matrix.molecule_distro.version }}
+      COLLECTION_PATH: ansible_collections/bcrisp4/postfix
+      REQUIREMENTS_FILE: requirements-dev.txt
+    defaults:
+      run:
+        working-directory: ${{ env.COLLECTION_PATH }}
     steps:
       - name: Check out code
         uses: actions/checkout@v2
         with:
-          path: ansible_collections/bcrisp4/postfix
+          path: ${{ env.COLLECTION_PATH }}
 
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
@@ -40,19 +47,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ env.pythonLocation }}
-          key: ${{ env.pythonLocation }}-${{ hashFiles('ansible_collections/bcrisp4/postfix/requirements-dev.txt') }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles(format('{0}/{1}', env.COLLECTION_PATH, env.REQUIREMENTS_FILE)) }}
 
       - name: Install dependencies
-        working-directory: ansible_collections/bcrisp4/postfix
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install -r requirements-dev.txt
+          molecule --version
+          ansible --version
 
-      - name: Test install role
-        working-directory: ansible_collections/bcrisp4/postfix
-        run: >-
-          molecule --version &&
-          ansible --version &&
-          MOLECULE_DISTRO=${{ matrix.molecule_distro.name }}
-          MOLECULE_DISTRO_VERSION=${{ matrix.molecule_distro.version }}
-          molecule test -s ${{ matrix.role_name }}
+      - name: Test
+        run: molecule test -s ${{ matrix.role_name }}
