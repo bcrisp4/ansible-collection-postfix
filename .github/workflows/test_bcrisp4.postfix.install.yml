@@ -1,16 +1,16 @@
-name: "bcrisp4.postfix.install"
+name: "test bcrisp4.postfix.install"
 on:
   workflow_dispatch: {}
   push:
     paths:
       - 'roles/install/**'
       - 'molecule/install/**'
-      - '.github/workflows/install_role.yml'
+      - '.github/workflows/test_bcrisp4.postfix.install.yml'
   pull_request:
     paths:
       - 'roles/install/**'
       - 'molecule/install/**'
-      - '.github/workflows/install_role.yml'
+      - '.github/workflows/test_bcrisp4.postfix.install.yml'
 jobs:
   molecule:
     runs-on: ubuntu-latest
@@ -40,13 +40,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ env.pythonLocation }}
-          key: ${{ env.pythonLocation }}-${{ hashFiles('ansible_collections/bcrisp4/postfix/requirements.txt') }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles('ansible_collections/bcrisp4/postfix/requirements-dev.txt') }}
 
       - name: Install dependencies
         working-directory: ansible_collections/bcrisp4/postfix
         run: |
           python3 -m pip install --upgrade pip
-          python3 -m pip install -r requirements.txt
+          python3 -m pip install -r requirements-dev.txt
 
       - name: Test install role
         working-directory: ansible_collections/bcrisp4/postfix

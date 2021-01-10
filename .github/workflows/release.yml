@@ -1,0 +1,50 @@
+---
+name: release
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch: {}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2.2.1
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: >-
+          python3 -m pip install --upgrade pip &&
+          python3 -m pip install -r requirements-release.txt
+
+      - name: Build Collection
+        run: >-
+          ansible --version &&
+          ansible-galaxy collection build --force --verbose . &&
+          mv bcrisp4-postfix-$(echo ${{ github.ref }} | cut -d\v -f2).tar.gz
+          bcrisp4-postfix-${{ github.ref }}.tar.gz
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+
+      - name: Upload Release Asset to GitHub
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bcrisp4-postfix-${{ github.ref }}.tar.gz
+          asset_name: bcrisp4-postfix-${{ github.ref }}.tar.gz
+          asset_content_type: application/gzip
