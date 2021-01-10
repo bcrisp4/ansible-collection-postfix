@@ -3,6 +3,6 @@
   hosts: all
   tasks:
     - name: Ensure apt cache is populated
-      apt:
-        update_cache: yes
+      ansible.builtin.apt:
+        update_cache: true
       when: ansible_os_family == "Debian"
