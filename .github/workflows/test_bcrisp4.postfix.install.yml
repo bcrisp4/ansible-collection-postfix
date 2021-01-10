@@ -56,5 +56,8 @@ jobs:
           molecule --version
           ansible --version
 
+      - name: Lint
+        run: molecule lint -s ${{ matrix.role_name }}
+
       - name: Test
         run: molecule test -s ${{ matrix.role_name }}
