@@ -10,7 +10,7 @@
       alias_maps: hash:/etc/aliases
       alias_database: hash:/etc/aliases
       myorigin: /etc/mailname
-      mydestination: 
+      mydestination:
         - mail.example.org
         - localhost.example.org
         - localhost
