@@ -1,11 +1,19 @@
 name: "bcrisp4.postfix.install"
 on:
-  pull_request: &on_paths
+  pull_request:
+    branches:
+      - main
     paths:
       - 'roles/install/**'
       - 'molecule/install/**'
       - '.github/workflows/bcrisp4.postfix.install.yml'
-  push: *on_paths
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/install/**'
+      - 'molecule/install/**'
+      - '.github/workflows/bcrisp4.postfix.install.yml'
   schedule:
     - cron: "0 9 * * *"
 jobs:
