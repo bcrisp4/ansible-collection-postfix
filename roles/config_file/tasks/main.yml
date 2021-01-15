@@ -8,4 +8,5 @@
     mode: "{{ postfix_config_file_mode }}"
   vars:
     _config: "{{ postfix_config_file_config }}"
+  notify: "{{ postfix_config_file_handlers|default(omit) }}"
   when: postfix_config_file_config != {}

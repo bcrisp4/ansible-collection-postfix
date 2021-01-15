@@ -13,6 +13,7 @@ This role mostly exists to enable reuse of the Postfix config file Jinja templat
 | postfix_config_file_group | "root" | The group that should own Postfix config file |
 | postfix_config_file_mode | "ug=r,o=" | The permissions that should be applied to Postfix config file |
 | postfix_config_file_config | {} | A dictionary describing the Posfix configuration (i.e. main.cf). See examples |
+| postfix_config_file_handlers |  | An optional list of handlers to notify if the Postfix config file has changed. |
 
 ## Example Playbook
 
