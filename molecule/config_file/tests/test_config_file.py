@@ -13,7 +13,8 @@ test_dir = os.path.dirname(test_file_path)
 
 
 def test_postfix_config_file_is_correct(host):
-    with open(f'{test_dir}/files/output/main.cf') as x: test_file_content = x.read()
+    with open(f'{test_dir}/files/output/main.cf') as x:
+        test_file_content = x.read()
     file = host.file("/etc/postfix/main.cf")
     assert file.exists
     assert file.user == "root"
