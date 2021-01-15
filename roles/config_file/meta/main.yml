@@ -1,6 +1,6 @@
 galaxy_info:
   author: Ben Crisp
-  description: Configure Postfix
+  description: Manage Postfix config files
   license: MIT
   min_ansible_version: 2.1
   platforms:
@@ -25,5 +25,4 @@ galaxy_info:
     - postfix
     - smtp
     - email
-dependencies:
-  - bcrisp4.postfix.handlers
+dependencies: []

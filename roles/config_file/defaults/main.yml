@@ -1,0 +1,6 @@
+---
+postfix_config_file_path: /etc/postfix/main.cf
+postfix_config_file_owner: root
+postfix_config_file_group: root
+postfix_config_file_mode: ug=r,o=
+postfix_config_file_config: {}

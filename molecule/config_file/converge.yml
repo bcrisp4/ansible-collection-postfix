@@ -20,13 +20,8 @@
       recipient_delimiter: +
       inet_interfaces: all
   tasks:
-    - name: "Test bcrisp4.postfix.configure with config"
+    - name: "Test bcrisp4.postfix.config_file"
       include_role:
-        name: "bcrisp4.postfix.configure"
+        name: "bcrisp4.postfix.config_file"
       vars:
-        postfix_config_main: "{{ _dummy_postfix_config }}"
-
-
-    - name: "Test bcrisp4.postfix.configure without config"
-      include_role:
-        name: "bcrisp4.postfix.configure"
+        postfix_config_file_config: "{{ _dummy_postfix_config }}"
