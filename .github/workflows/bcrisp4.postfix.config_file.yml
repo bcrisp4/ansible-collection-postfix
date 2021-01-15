@@ -1,17 +1,17 @@
-name: "bcrisp4.postfix.configure"
+name: "bcrisp4.postfix.config_file"
 on:
   pull_request:
     paths:
-      - 'roles/configure/**'
-      - 'molecule/configure/**'
-      - '.github/workflows/bcrisp4.postfix.configure.yml'
+      - 'roles/config_file/**'
+      - 'molecule/config_file/**'
+      - '.github/workflows/bcrisp4.postfix.config_file.yml'
   push:
     branches:
       - main
     paths:
-      - 'roles/configure/**'
-      - 'molecule/configure/**'
-      - '.github/workflows/bcrisp4.postfix.configure.yml'
+      - 'roles/config_file/**'
+      - 'molecule/config_file/**'
+      - '.github/workflows/bcrisp4.postfix.config_file.yml'
   schedule:
     - cron: "0 9 * * *"
 jobs:
@@ -21,7 +21,7 @@ jobs:
       fail-fast: true
       matrix:
         role_name:
-          - configure
+          - config_file
         molecule_distro:
           - "debian:stretch"
           - "debian:buster"
