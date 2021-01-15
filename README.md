@@ -10,19 +10,17 @@ Install and configure Postfix
 
 Installs the Postfix package
 
-### [bcrisp4.postfix.configure](https://github.com/bcrisp4/ansible-collection-postfix/tree/main/roles/configure) ![bcrisp4.postfix.configure](https://github.com/bcrisp4/ansible-collection-postfix/workflows/bcrisp4.postfix.configure/badge.svg)
+### [bcrisp4.postfix.config_file](https://github.com/bcrisp4/ansible-collection-postfix/tree/main/roles/config_file) ![bcrisp4.postfix.config_file](https://github.com/bcrisp4/ansible-collection-postfix/workflows/bcrisp4.postfix.config_file/badge.svg)
 
-- Manage the Postfix service
-- Main Postfix configuration
-- Postfix master process configuration
+Generates Postfix configuration files. Mostly a helper role to allow reuse of the same Jinja template in other roles.
 
 ## Todo
-- [ ] role to provide common postfix ansible handlers
-- [ ] role to configure postfix
-- [ ] role to configure postfix header checks
-- [ ] role to configure postfix aliases
-- [ ] role to configure postfix generic table
-- [ ] probably more
+- [x] Role to install Postfix
+- [x] Helper role to generate Postfix config files
+- [ ] Helper role to generate Postfix Master Process config files
+- [ ] Helper role to manage the Postfix service
+- [ ] Helper role to provide common handlers (e.g. reloading Postfix)
+- [ ] Role to configure Postfix as an SMTP relay
 
 ## License
 
