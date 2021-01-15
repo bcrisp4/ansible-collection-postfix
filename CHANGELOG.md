@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- bcrisp4.postfix.configure role to manage main Postfix config, Postfix master process config and the Postfix service
+- bcrisp4.postfix.config_file helper role to generate Postfix config files
 ### Changed
 - Modify the install role to ensure that the apt cache is updated before installing the Postfix package
 - Fix the path to the CHANGELOG file in the PR workflow
