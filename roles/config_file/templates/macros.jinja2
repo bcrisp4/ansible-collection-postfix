@@ -1,0 +1,13 @@
+{% macro write_parameter(name, value) %}
+{% if value is sameas true %}
+{% set value = "yes" %}
+{% endif %}
+{% if value is sameas false %}
+{% set value = "no" %}
+{% endif %}
+{% if value is iterable and value is not string %}
+{{ name }}={{ value|join(', ') }}
+{% else %}
+{{ name }}={{ value }}
+{% endif %}
+{%- endmacro %}
