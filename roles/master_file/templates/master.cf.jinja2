@@ -1,45 +1,50 @@
 # {{ ansible_managed }}
 # Docs: master(5) (http://www.postfix.org/master.5.html)
 
-{% set rows = [] %}
-{% for service in config %}
-{#- Normalise config values #}
-{% for key, value in service.items() %}
-{% if value is sameas true %}
-{% do service.update({key: 'y'}) %}
-{% elif value is sameas false %}
-{% do service.update({key: 'n'}) %}
-{% endif %}
-{% endfor %}
+{# Macro to convert bools to correct string value #}
+{%- macro write_value(value) %}
+{%- if value is sameas true %}
+y
+{%- elif value is sameas false %}
+n
+{%- else %}
+{{ value }}
+{%- endif %}
+{%- endmacro %}
 
 {#- Consruct rows #}
+{% set rows = [] %}
+{% for service in _config %}
 {% set row = [] %}
 
-{# This is the value that is used to signal to Postfix that we want to use
+{#- This is the value that is used to signal to Postfix that we want to use
    the built-in default. It used for any optional parameters that are not 
    set #}
-{% set system_default = '-' %}
+{%- set system_default = '-' %}
 
-{% do row.append(service.get('service')) %}
-{% do row.append(service.get('type')) %}
-{% do row.append(service.get('private', system_default)) %}
-{% do row.append(service.get('unpriv', system_default)) %}
-{% do row.append(service.get('chroot', system_default)) %}
-{% do row.append(service.get('wakeup', system_default)) %}
-{% do row.append(service.get('maxproc', system_default)) %}
-{# Consruct full command, including any provided args, as a single string #}
-{% set command = [] %}
-{% do command.append(service.get('command')) %}
-{% set args = service.get('args', []) %}
-{% do command.extend(args) %}
-{% do row.append(command|join(' ')) %}
-{% do rows.append(row) %}
-{% endfor %}
+{{- row.append(service.get('service')) }}
+{{- row.append(service.get('type')) }}
+{{- row.append(service.get('private', system_default)) }}
+{{- row.append(service.get('unpriv', system_default)) }}
+{{- row.append(service.get('chroot', system_default)) }}
+{{- row.append(service.get('wakeup', system_default)) }}
+{{- row.append(service.get('maxproc', system_default)) }}
+{#- Consruct full command, including any provided args, as a single string #}
+{%- set command = [] %}
+{{- command.append(service.get('command')) }}
+{%- set args = service.get('args', []) %}
+{{- command.extend(args) }}
+{{- row.append(command|join(' ')) }}
+{{- rows.append(row) }}
+{%- endfor %}
 # ==========================================================================
 # service type  private unpriv  chroot  wakeup  maxproc command + args
 # (default)     (yes)   (yes)   (no)    (never) (100)
 # ==========================================================================
 {# Print out the rows, tab-delimited #}
 {% for row in rows %}
-{{ row|join('\t') }}
+{% for i in row %}
+{{ write_value(i) }}{{ '\t' if not loop.last else '' -}}
 {% endfor %}
+{{ '\n' -}}
+{% endfor -%}
