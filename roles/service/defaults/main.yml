@@ -1,2 +1,4 @@
 ---
-# defaults file for service
+postfix_service_name: postfix
+postfix_service_state: started
+postfix_service_enabled: true
