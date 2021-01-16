@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - master_file helper role to generate Postfix master process config files (master.cf)
 - service role to manage the Postfix service state
+- handlers role to provide some common Ansible handlers to other Postfix roles
 
 ## [0.2.0] - 2021-01-15
 ### Added

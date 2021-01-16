@@ -1,0 +1,10 @@
+---
+- name: restart postfix
+  ansible.builtin.service:
+    name: "{{ postfix_service_name }}"
+    state: restarted
+
+- name: reload postfix
+  ansible.builtin.service:
+    name: "{{ postfix_service_name }}"
+    state: reloaded
