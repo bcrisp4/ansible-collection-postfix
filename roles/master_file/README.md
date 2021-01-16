@@ -1,6 +1,6 @@
 # bcrisp4.postfix.master_file ![bcrisp4.postfix.master_file(https://github.com/bcrisp4/ansible-collection-postfix/workflows/bcrisp4.postfix.master_file/badge.svg)
 
-Manage Postfix configuration files
+Manage Postfix master process configuration files
 
 This role mostly exists to enable reuse of the Postfix config file Jinja template in other roles in this collection.
 

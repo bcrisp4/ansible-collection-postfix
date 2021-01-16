@@ -14,10 +14,14 @@ Installs the Postfix package
 
 Generates Postfix configuration files. Mostly a helper role to allow reuse of the same Jinja template in other roles.
 
+### [bcrisp4.postfix.master_file](https://github.com/bcrisp4/ansible-collection-postfix/tree/main/roles/master_file) ![bcrisp4.postfix.master_file](https://github.com/bcrisp4/ansible-collection-postfix/workflows/bcrisp4.postfix.master_file/badge.svg)
+
+Generates Postfix master process configuration files. Mostly a helper role to allow reuse of the same Jinja template in other roles.
+
 ## Todo
 - [x] Role to install Postfix
 - [x] Helper role to generate Postfix config files
-- [ ] Helper role to generate Postfix Master Process config files
+- [x] Helper role to generate Postfix Master Process config files
 - [ ] Helper role to manage the Postfix service
 - [ ] Helper role to provide common handlers (e.g. reloading Postfix)
 - [ ] Role to configure Postfix as an SMTP relay
