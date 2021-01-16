@@ -1,0 +1,39 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    postfix_master_file_config:
+      - service: smtp
+        type: inet
+        private: false
+        chroot: true
+        command: smtpd
+      - service: pickup
+        type: unix
+        private: false
+        unprivileged: true
+        chroot: false
+        wakeup: 60
+        maxproc: 1
+        command: pickup
+      - service: rewrite
+        type: unix
+        chroot: true
+        command: trivial-rewrite
+      - service: ifmail
+        type: unix
+        unpriv: false
+        chroot: false
+        maxprox: 2
+        command: pipe
+        args:
+          - flags=Fq.
+          - user=bsmtp
+          - argv=/usr/lib/bsmtp/bsmtp
+          - -t$nexthop
+          - -f$sender
+          - $recipient
+  tasks:
+    - name: "Test bcrisp4.postfix.master_file"
+      include_role:
+        name: "bcrisp4.postfix.master_file"
