@@ -1,0 +1,28 @@
+galaxy_info:
+  author: Ben Crisp
+  description: Manage Postfix service
+  license: MIT
+  min_ansible_version: 2.1
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+        - stretch
+    - name: Ubuntu
+      versions:
+        - focal
+        - bionic
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Fedora
+      versions:
+        - 31
+        - 32
+
+  galaxy_tags:
+    - postfix
+    - smtp
+    - email
+dependencies: []
