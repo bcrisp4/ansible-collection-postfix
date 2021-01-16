@@ -1,8 +1,7 @@
-# bcrisp4.postfix.service ![bcrisp4.postfix.service(https://github.com/bcrisp4/ansible-collection-postfix/workflows/bcrisp4.postfix.service/badge.svg)
-
+# bcrisp4.postfix.service
 Manage Postfix service state
 
-## Role Variables
+# Role Variables
 
 | Variable | Default | Description |
 |-|-|-|
@@ -32,21 +31,6 @@ The above would ensure that `postfix` is started and enabled
 
 ```
 The above would ensure that `postfix` is stopped and disabled
-
-## Supported Platforms
-
-- Debian
-  - Stretch (9)
-  - Buster (10)
-- Ubuntu
-  - Bionic (18.04)
-  - Focal (20.04)
-- EL (CentOS)
-  - 7
-  - 8
-- Fedora
-  - 31
-  - 32
 
 ## License
 
