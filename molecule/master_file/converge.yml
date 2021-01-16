@@ -3,7 +3,7 @@
   hosts: all
   vars:
     postfix_master_file_config:
-      - service: smtp 
+      - service: smtp
         type: inet
         private: false
         chroot: true
