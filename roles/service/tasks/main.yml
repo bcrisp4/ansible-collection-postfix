@@ -1,0 +1,6 @@
+---
+- name: ensure that the postfix service is in the correct state
+  ansible.builtin.service:
+    name: "{{ postfix_service_name }}"
+    state: "{{ postfix_service_state }}"
+    enabled: "{{ postfix_service_enabled }}"
