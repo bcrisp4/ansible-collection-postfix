@@ -1,6 +1,6 @@
 galaxy_info:
   author: Ben Crisp
-  description: Manage Postfix config files
+  description: Manage Postfix master config files
   license: MIT
   min_ansible_version: 2.1
   platforms:
