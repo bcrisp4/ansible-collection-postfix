@@ -1,2 +1,6 @@
 ---
-# defaults file for master_file
+postfix_master_file_path: /etc/postfix/master.cf
+postfix_master_file_owner: root
+postfix_master_file_group: root
+postfix_master_file_mode: ug=r,o=
+postfix_master_file_config: []
