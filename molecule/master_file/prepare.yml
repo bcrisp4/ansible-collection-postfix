@@ -1,0 +1,7 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: "Ensure Postfix is installed"
+      include_role:
+        name: "bcrisp4.postfix.install"
