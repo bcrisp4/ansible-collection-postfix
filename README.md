@@ -22,12 +22,17 @@ Generates Postfix master process configuration files. Mostly a helper role to al
 
 Manages the Postfix service state
 
+### [bcrisp4.postfix.handlers](https://github.com/bcrisp4/ansible-collection-postfix/tree/main/roles/handlers)
+
+Provides some common Ansible handler for other Postfix roles
+
 ## Todo
 - [x] Role to install Postfix
 - [x] Helper role to generate Postfix config files
 - [x] Helper role to generate Postfix Master Process config files
 - [x] Helper role to manage the Postfix service
-- [ ] Helper role to provide common handlers (e.g. reloading Postfix)
+- [ ] Testing and CI for the Postfix service role
+- [x] Helper role to provide common handlers (e.g. reloading Postfix)
 - [ ] Role to configure Postfix as an SMTP relay
 
 ## License
