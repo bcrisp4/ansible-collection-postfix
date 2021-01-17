@@ -1,0 +1,46 @@
+---
+- name: include vars for {{ ansible_os_family }}
+  include_vars: "{{ ansible_os_family|lower }}.yml"
+
+- name: check that relayhost has been set
+  ansible.builtin.assert:
+    that:
+      - postfix_relay_relayhost_name != ""
+    success_msg: "postfix_relay_relayhost_name is set"
+    fail_msg: "you need to set postfix_relay_relayhost_name to something"
+    quiet: true
+
+- name: check that sasl variables have been set
+  ansible.builtin.assert:
+    that:
+      - postfix_relay_sasl_username != ""
+      - postfix_relay_sasl_domain != ""
+      - postfix_relay_sasl_password != ""
+    success_msg: "sasl variables are set"
+    fail_msg: >-
+      you need to set postfix_relay_sasl_username, postfix_relay_sasl_domain and
+      postfix_relay_sasl_password when postfix_relay_sasl == true
+    quiet: true
+  when: postfix_relay_sasl == true
+
+- import_role:
+    name: bcrisp4.postfix.install
+
+- name: configure sasl credentials
+  include_tasks: sasl.yml
+  when: postfix_relay_sasl == true
+
+- import_role:
+    name: bcrisp4.postfix.config_file
+  vars:
+    postfix_config_file_config: "{{ __postfix_relay_final_config }}"
+    postfix_config_file_owner: "{{ postfix_relay_config_file_owner }}"
+    postfix_config_file_group: "{{ postfix_relay_config_file_group }}"
+    postfix_config_file_mode: "{{ postfix_relay_config_file_mode }}"
+    postfix_config_file_handlers:
+      - restart postfix
+
+- meta: flush_handlers
+
+- import_role:
+    name: bcrisp4.postfix.service

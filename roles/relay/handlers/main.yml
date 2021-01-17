@@ -1,0 +1,8 @@
+---
+- name: postmap sasl password
+  ansible.builtin.command:
+    argv:
+      - /usr/sbin/postmap
+      - -c
+      - "{{ postfix_relay_config_dir }}"
+      - "{{ __postfix_relay_sasl_password_maps_type }}:/{{ __postfix_relay_sasl_password_maps_file }}"

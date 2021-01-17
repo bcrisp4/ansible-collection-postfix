@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: Ben Crisp
+  description: Configure Postfix as an SMTP relay server
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+    - name: Debian
+      versions:
+        - Buster
+  galaxy_tags:
+    - postfix
+    - email
+    - smtp
+    - relay
+dependencies:
+  - bcrisp4.postfix.handlers

@@ -1,0 +1,30 @@
+---
+__postfix_relay_sasl_password_maps_type: hash
+__postfix_relay_sasl_password_maps_file: >- 
+  {{ postfix_relay_config_dir }}/sasl_password
+
+__postfix_relay_relayhost: >-
+  {{ '{}:{}'.format(postfix_relay_relayhost_name, postfix_relay_relayhost_port)
+  if postfix_relay_relayhost_mx_lookups else
+  '[{}]:{}'.format(postfix_relay_relayhost_name,
+  postfix_relay_relayhost_port) }}
+
+__postfix_relay_config:
+  relayhost: "{{ __postfix_relay_relayhost }}"
+  myhostname: "{{ postfix_relay_myhostname }}"
+  mydomain: "{{ postfix_relay_mydomain }}"
+  mydestination: "{{ postfix_relay_mydestination }}"
+  mynetworks: "{{ postfix_relay_mynetworks }}"
+  relay_interfaces: "{{ postfix_relay_interfaces }}"
+  inet_interfaces: "{{ postfix_relay_interfaces }}"
+  smtpd_relay_restrictions: "{{ postfix_relay_restrictions }}"
+
+__postfix_relay_sasl_config:
+  smtp_sasl_auth_enable: "{{ postfix_relay_sasl }}"
+  smtp_sasl_password_maps: >-
+    {{ __postfix_relay_sasl_password_maps_type }}:/{{ __postfix_relay_sasl_password_maps_file }}
+  smtp_sasl_security_options: "{{ postfix_relay_sasl_security_options }}"
+
+__postfix_relay_final_config: >-
+  {{ __postfix_relay_config|combine(postfix_relay_extra_config,
+  (__postfix_relay_sasl_config if postfix_relay_sasl == true else {})) }}
