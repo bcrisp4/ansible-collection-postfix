@@ -1,0 +1,17 @@
+---
+- name: ensure that sasl libraries are installed
+  ansible.builtin.package:
+    name: "{{ postfix_relay_sasl_packages }}"
+    state: present
+
+- name: ensure that the sasl credentials file is in the correct state
+  ansible.builtin.template:
+    src: sasl_password.jinja2
+    dest: "{{ __postfix_relay_sasl_password_maps_file }}"
+    owner: "{{ postfix_relay_config_file_owner }}"
+    group: "{{ postfix_relay_config_file_group }}"
+    mode: u=r,go=
+  no_log: true
+  notify:
+    - postmap sasl password
+    - restart postfix

@@ -1,0 +1,3 @@
+---
+postfix_relay_sasl_packages:
+  - libsasl2-2

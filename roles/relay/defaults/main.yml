@@ -1,0 +1,52 @@
+---
+postfix_relay_config_dir: /etc/postfix
+postfix_relay_config_file_owner: root
+postfix_relay_config_file_group: root
+postfix_relay_config_file_mode: ugo=r
+
+# http://www.postfix.org/postconf.5.html#relayhost
+# This needs to be set to something for the relay to function
+postfix_relay_relayhost_name: ""
+postfix_relay_relayhost_port: 587
+postfix_relay_relayhost_mx_lookups: false
+
+# http://www.postfix.org/postconf.5.html#myhostname
+postfix_relay_myhostname: "{{ inventory_hostname }}"
+
+# http://www.postfix.org/postconf.5.html#mydomain
+postfix_relay_mydomain: "local"
+
+# http://www.postfix.org/postconf.5.html#mydestination
+postfix_relay_mydestination:
+  - $myhostname
+  - localhost.$mydomain
+  - $mydomain
+
+# http://www.postfix.org/postconf.5.html#mynetworks
+postfix_relay_mynetworks:
+  - 127.0.0.0/8
+
+# http://www.postfix.org/postconf.5.html#inet_interfaces
+postfix_relay_interfaces:
+  - loopback-only
+
+# http://www.postfix.org/postconf.5.html#smtpd_relay_restrictions
+postfix_relay_restrictions:
+  - permit_mynetworks
+  - permit_sasl_authenticated
+  - defer_unauth_destination
+
+# Use SASL authentication when connecting to the relayhost
+# http://www.postfix.org/postconf.5.html#smtp_sasl_auth_enable
+postfix_relay_sasl: false
+postfix_relay_sasl_username: ""
+postfix_relay_sasl_domain: ""
+postfix_relay_sasl_password: ""
+# http://www.postfix.org/postconf.5.html#smtp_sasl_security_options
+postfix_relay_sasl_security_options:
+  - noanonymous
+
+# A dict of additional Postfix parameters to include.
+# See: https://github.com/bcrisp4/ansible-collection-postfix/tree/main/roles/config_file
+# for information on the format.
+postfix_relay_extra_config: {}
