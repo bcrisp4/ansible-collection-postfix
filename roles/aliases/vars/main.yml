@@ -1,0 +1,3 @@
+---
+# Only the "hash" type is supported at present
+__postfix_aliases_file_type: hash

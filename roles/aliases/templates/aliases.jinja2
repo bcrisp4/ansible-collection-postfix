@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+{% for name, value in postfix_aliases|dictsort() %}
+{% if value is iterable and value is not string %}
+{{ name }}: {{ value|join(', ') }}
+{% else %}
+{{ name }}: {{ value }}
+{% endif %}
+{% endfor %}

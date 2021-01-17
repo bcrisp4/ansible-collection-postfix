@@ -1,0 +1,6 @@
+---
+- name: newaliases
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/newaliases
+      - -oA{{ __postfix_aliases_file_type }}:{{ postfix_aliases_file_path }}
