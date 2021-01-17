@@ -1,6 +1,6 @@
 galaxy_info:
   author: Ben Crisp
-  description: Manage Postfix config files
+  description: Manage system mail aliases database file
   license: MIT
   min_ansible_version: 2.1
   platforms:
@@ -20,9 +20,7 @@ galaxy_info:
       versions:
         - 31
         - 32
-
   galaxy_tags:
     - postfix
-    - smtp
-    - email
+    - aliases
 dependencies: []
