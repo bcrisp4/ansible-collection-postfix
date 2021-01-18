@@ -19,7 +19,7 @@ This role mostly exists to enable reuse of the Postfix config file Jinja templat
 
 ```yaml
 - hosts: 127.0.0.1
-  variables:
+  vars:
     # This Postfix configuration serves only as an example. It is not complete.
     postfix_master_file_config:
       - service: smtp 

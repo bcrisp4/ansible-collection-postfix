@@ -1,0 +1,14 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Ensure Postfix is installed
+      include_role:
+        name: bcrisp4.postfix.install
+
+    - name: Make default Postfix config on RedHat-like OSs work with IPv6 disabled
+      ansible.builtin.lineinfile:
+        path: /etc/postfix/main.cf
+        regexp: '^inet_interfaces ='
+        line: "inet_interfaces = 127.0.0.1"
+        state: present
