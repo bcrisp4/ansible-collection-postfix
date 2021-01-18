@@ -15,7 +15,6 @@ __postfix_relay_config:
   mydomain: "{{ postfix_relay_mydomain }}"
   mydestination: "{{ postfix_relay_mydestination }}"
   mynetworks: "{{ postfix_relay_mynetworks }}"
-  relay_interfaces: "{{ postfix_relay_interfaces }}"
   inet_interfaces: "{{ postfix_relay_interfaces }}"
   smtpd_relay_restrictions: "{{ postfix_relay_restrictions }}"
 
