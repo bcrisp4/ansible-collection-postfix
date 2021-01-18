@@ -1,0 +1,7 @@
+---
+postfix_aliases_file_path: /etc/aliases
+postfix_aliases_file_owner: root
+postfix_aliases_file_group: root
+postfix_aliases_file_mode: ugo=r
+postfix_aliases:
+  postmaster: root

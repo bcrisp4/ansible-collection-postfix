@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    postfix_aliases:
+      postmaster: root
+      root:
+        - foo@example.org
+        - bar@example.org
+  tasks:
+    - name: "Test bcrisp4.postfix.aliases"
+      include_role:
+        name: "bcrisp4.postfix.aliases"

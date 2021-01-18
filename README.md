@@ -18,13 +18,17 @@ Installs the Postfix package
 
 Manages the Postfix service state
 
+### [bcrisp4.postfix.aliases](https://github.com/bcrisp4/ansible-collection-postfix/tree/main/roles/aliases) ![bcrisp4.postfix.aliases](https://github.com/bcrisp4/ansible-collection-postfix/workflows/bcrisp4.postfix.aliases/badge.svg)
+
+Manages the system mail aliases database file (/etc/aliases)
+
 ### [bcrisp4.postfix.config_file](https://github.com/bcrisp4/ansible-collection-postfix/tree/main/roles/config_file) ![bcrisp4.postfix.config_file](https://github.com/bcrisp4/ansible-collection-postfix/workflows/bcrisp4.postfix.config_file/badge.svg)
 
-Generates Postfix configuration files.
+Generates Postfix configuration files
 
 ### [bcrisp4.postfix.master_file](https://github.com/bcrisp4/ansible-collection-postfix/tree/main/roles/master_file) ![bcrisp4.postfix.master_file](https://github.com/bcrisp4/ansible-collection-postfix/workflows/bcrisp4.postfix.master_file/badge.svg)
 
-Generates Postfix master process configuration files.
+Generates Postfix master process configuration files
 
 ### [bcrisp4.postfix.handlers](https://github.com/bcrisp4/ansible-collection-postfix/tree/main/roles/handlers)
 
@@ -35,10 +39,11 @@ Provides some common Ansible handler for other Postfix roles
 - [x] Helper role to generate Postfix config files
 - [x] Helper role to generate Postfix Master Process config files
 - [x] Helper role to manage the Postfix service
-- [ ] Testing and CI for the Postfix service role
 - [x] Helper role to provide common handlers (e.g. reloading Postfix)
 - [x] Role to configure Postfix as an SMTP relay
-- [ ] Testing and CI for the Postfix relay role
+- [x] Role to manage mail aliases (/etc/aliases)
+- [ ] Tests and CI for the Postfix service role
+- [ ] Tests and CI for the Postfix relay role
 
 ## License
 
